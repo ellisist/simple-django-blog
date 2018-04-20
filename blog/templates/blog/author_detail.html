@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ author }}</h1>
+<p>{{ author.bio }}</p>
+<p><a href="{% url 'author-posts' author.pk %}">Click here</a> to see posts by {{ author }}.</p>
+{% endblock %}

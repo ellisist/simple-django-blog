@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Posts by {{ author }}</h1>
+{% if author.post_set.all %}
+{% for post in author.post_set.all %}
+<h2>{{ post.title }}</h2>
+<p> {{ post.text }}</p>
+<hr>
+{% endfor %}
+{% else %}
+<h2>This author has no posts!</h2>
+{% endif %}
+{% endblock %}

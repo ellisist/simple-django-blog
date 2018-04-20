@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>{{ post.title }}</h1>
-<small>{{ post.publish_date }} - {{ post.author.user.username }}</small>
+<small>{{ post.published }} - {{ post.author }}</small>
 <p>{{ post.text }}</p>
 <hr>
 {% for comment in post.comment_set.all %}
 <h4>{{ comment.title }}</h4>
 <p>{{ comment.text }}</p>
-<small>({{ comment.publish_date }}) - by {{ comment.author.user.username }}</small>
+<small>{{ comment.created }} - by {{ comment.user }}</small>
+{% if comment.created < comment.last_modified %}<p><small>(Comment edited {{ comment.last_modified }})</small></p>{% endif %}
 {% endfor %}
 {% endblock %}
