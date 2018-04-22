@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', RedirectView.as_view(url='/blog/')),
     path('blog/', include('blog.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 # Serving Static files in dev

@@ -1,7 +1,9 @@
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 from blog.models import Post, Author
+from django.urls import reverse
 
 
 class BlogHome(ListView):
@@ -30,5 +32,6 @@ class AuthorList(ListView):
     model = Author
 
 
-class CreatePost(CreateView):
-    pass
+class CreatePost(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'text', 'published']
