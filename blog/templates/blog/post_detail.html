@@ -1,13 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>{{ post.title }}</h1>
-<small>{{ post.published }} - {{ post.author }}</small>
+<small>{{ post.published }} - <a href="{% url 'author-detail' post.author.id %}">{{ post.author }}</a></small>
 <p>{{ post.text }}</p>
+{% if user.is_authenticated %}
+{% if user.author.id == post.author.id %}
+<p><small><a href="{% url 'update-post' post.pk %} ">Edit this post</a></small></p>
+{% endif %}
+{% endif %}
 <hr>
+{% if post.comment_set.all %}
 {% for comment in post.comment_set.all %}
 <h4>{{ comment.title }}</h4>
 <p>{{ comment.text }}</p>
 <small>{{ comment.created }} - by {{ comment.user }}</small>
-{% if comment.created < comment.last_modified %}<p><small>(Comment edited {{ comment.last_modified }})</small></p>{% endif %}
+{% if comment.was_modified %}<p><small>(Comment edited {{ comment.last_modified }})</small></p>{% endif %}
 {% endfor %}
+<p><a href="{% url 'create-comment' post.id %}">Add a comment</a></p>
+{% else %}
+<p>There are no comments yet. Why not <a href="{% url 'create-comment' post.id %}">add one?</a></p>
+{% endif %}
+
 {% endblock %}

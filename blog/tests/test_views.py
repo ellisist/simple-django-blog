@@ -18,7 +18,7 @@ class TestBlogHome(TestCase):
             Post.objects.create(title="Example post {}".format(num),
                                 text="This text doesn't matter",
                                 author=test_author1, published=timezone.now()
-                                + datetime.timedelta(days=num % 5))
+                                - datetime.timedelta(days=num % 5))
 
     def test_paginates_by_5(self):
         resp = self.client.get(reverse('home'))

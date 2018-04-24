@@ -3,4 +3,9 @@
 <h1>{{ author }}</h1>
 <p>{{ author.bio }}</p>
 <p><a href="{% url 'author-posts' author.pk %}">Click here</a> to see posts by {{ author }}.</p>
+{% if user.is_authenticated %}
+{% if user.author.id == author.id %}
+<p><a href="{% url 'update-author' author.id %}">Edit this page</a></p>
+{% endif %}
+{% endif %}
 {% endblock %}

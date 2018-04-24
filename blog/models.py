@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.urls import reverse
+import datetime
 
 
 class Author(models.Model):
@@ -15,6 +17,9 @@ class Author(models.Model):
             return self.name
         else:
             return self.user.username
+
+    def get_absolute_url(self):
+        return reverse('author-detail', kwargs={'pk': self.id})
 
 
 class Post(models.Model):
@@ -31,6 +36,9 @@ class Post(models.Model):
         "Returns False if 'published' is in future"
         return self.published <= timezone.now()
 
+    def get_absolute_url(self):
+        return reverse('post-detail', kwargs={'pk': self.id})
+
     class Meta:
         ordering = ['published']
 
@@ -43,6 +51,13 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     last_modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+
+    def was_modified(self):
+        return self.last_modified - self.created > datetime.timedelta(
+            seconds=.4)
+
+    def get_absolute_url(self):
+        return reverse('post-detail', kwargs={'pk': self.post.id})
 
     class Meta:
         ordering = ['created']
