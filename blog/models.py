@@ -40,7 +40,7 @@ class Post(models.Model):
         return reverse('post-detail', kwargs={'pk': self.id})
 
     class Meta:
-        ordering = ['published']
+        ordering = ['-published']
 
 
 class Comment(models.Model):

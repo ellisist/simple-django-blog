@@ -1,8 +1,50 @@
 {% extends 'base.html' %}
 {% block content %}
-{% for post in post_list %}
-<h1><a href='{% url 'post-detail' post.pk %}'>{{ post.title }}</a></h1>
-<small>{{ post.published }} - {{ post.author.user.username }}</small>
-<hr>
+
+<div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+  <div class="col-md-6 px-0">
+    <h1 class="display-4 font-italic">Title of a featured blog post</h1>
+    <p class="lead my-3">The 'lede' of the featured blog post. Can support multiple lines of text, giving a teaser for the full post</p>
+    <p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Continue reading...</a></p>
+  </div>
+</div>
+
+<main role="main" class="container">
+  <div class="row">
+    <div class="col-md-8 blog-main">
+      <h3 class="pb-3 mb-4 font-italic border-bottom">
+        Latest
+      </h3>
+
+      {% for post in post_list %}
+      <div class="blog-post">
+        <h2 class="blog-post-title"><a href='{% url 'post-detail' post.pk %}'>{{ post.title }}</a></h2>
+        <p class="blog-post-meta">{{ post.published.date }} by <a href="{% url 'author-detail' post.author.pk %}">{{ post.author.user.username }}</a></p>
+        <p class="blog-text">{{ post.text }}</p>
+      </div>
 {% endfor %}
+{% block pagination %}
+      {% if is_paginated %}
+      <nav class="blog-pagination">
+        {% if page_obj.has_next %}
+        <a class="btn btn-outline-primary" href="{{ request.path }}?page={{ page_obj.next_page_number }}">Older</a>
+        {% else %}
+        <a class="btn btn-outline-secondary" href="#">Older</a>
+        {% endif %}
+        {% if page_obj.has_previous %}
+        <a class="btn btn-outline-primary" href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Newer</a>
+        {% else %}
+        <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
+        {% endif %}
+      </nav>
+      {% endif %}
+{% endblock %}
+
+    </div>
+    <aside class="col-md-4 blog-sidebar">
+      <div class="p-3 mb-3 bg-light rounded">
+        <h4 class="font-italic">About</h4>
+        <p class="mb-0">This is a blog I'm making mostly to practice with Django, Bootstrap, etc.</p>
+      </div>
+
 {% endblock %}
