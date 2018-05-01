@@ -14,23 +14,24 @@
 <p>login to view this page</p>
 {% endif %}
 {% endif %}
-<form method="post" action="">
+<form method="post" action="" class="row justify-content-start">
   {% csrf_token %}
-  
-  <table>
-    <tr>
-      <td>{{ form.username.label_tag }}</td>
-      <td>{{form.username }}</td>
-    </tr>
-    <tr>
-      <td>{{ form.password.label_tag }}</td>
-      <td>{{ form.password }}</td>
-    </tr>
-    <tr>
-      <input type="submit" value="login" />
-      <input type="hidden" name="next" value="{{ next }}" />
-    </tr>
-  </table>
+  <div class="col-md-auto mb-2">
+    <table>
+      <tr>
+        <td>{{ form.username.label_tag }}</td>
+        <td>{{form.username }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.password.label_tag }}</td>
+        <td>{{ form.password }}</td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-auto align-self-center m-auto m-md-0">
+    <input type="submit" value="login" class="btn btn-primary"/>
+    <input type="hidden" name="next" value="{{ next }}" />
+  </div>
 </form>
 
 <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
