@@ -1,0 +1,27 @@
+{
+  "name": "diyblog",
+  "version": "1.0.0",
+  "description": "A simple blog made with Django",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ellisist/simple-django-blog.git"
+  },
+  "author": "Matthew Ellis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ellisist/simple-django-blog/issues"
+  },
+  "homepage": "https://github.com/ellisist/simple-django-blog#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-cssnano": "^2.1.3",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4"
+  }
+}
